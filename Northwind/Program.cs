@@ -509,14 +509,22 @@ foreach (var o in q33)
 // ON o.ProductID = p.ProductID
 // GROUP BY p.ProductNameHAVING SUM(o.Quantity)<200
 
-var q34 = db.OrderDetails.Select(o => new
-{
-    o.Quantity,
-    ProductName = db.Products.Select(p =>new { p.ProductName,p.ProductId}).Where(p=>p.ProductId==o.ProductId),
+/*var q34 = db.OrderDetails.Join(db.Products,
+    o => o.ProductId,
+    p => p.ProductId,
+    (or, pr) => new
+    {
+        or.Quantity,
+        pr.ProductName,
+    }
+    ).GroupBy(g => g.ProductName).Select(g => new
+    {
+        ProductName = g.Key,
+        TotalUnits = g.Sum(o => o.Quantity)
+    }).OrderBy(g => g.ProductName).Where(g => g.TotalUnits < 200);
 
-});
 foreach (var item in q34)
 {
-    Console.WriteLine(i + " " +item.ProductName);
+    Console.WriteLine(i + " " + item.ProductName + " " + item.TotalUnits);
     i++;
-}
+}*/
